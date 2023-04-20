@@ -1,0 +1,2 @@
+mitofone0@gmail.com,leitura,não_possui,não_possui,não,possui
+micaelfone0@gmail.com,main.py,leitura,escrever,deletar
