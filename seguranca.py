@@ -66,16 +66,20 @@ def resetar_senha():
 
 
 def main_secundadrio(mail):
+    print("1-Ler um arquivo")
+    print("2-Escrever no arquivo")
+    print("4-Deletar o arquivo")
+    option = int(input("Digite um valor:"))
+    if (option == 1):
+        ler_arquivo(mail)
+    elif (option == 2):
+        escrever_arquivo(mail)
+
+def ler_arquivo(email):
     with open('arquivo.txt', 'r') as arquivo:
-        i=0
-        while(i<1):
+        i = 0
+        while (i < 1):
             permissoes = arquivo.readlines(i)
-            print(permissoes)
-            print("1-Ler um arquivo")
-            print("2-Escrever no arquivo")
-            print("4-Deletar o arquivo")
-            option = int(input("Digite um valor:"))
-            nome_do_arquivo = input("Digite o nome do arquivo em que voce deseja realizar uma operacao:")
             for linha in permissoes:
                 linha = linha.replace("\n","")
                 campo = linha.split(",")
@@ -84,39 +88,65 @@ def main_secundadrio(mail):
                 permition = campo[2]
                 permition2=campo[3]
                 permition3=campo[4]
-                if (option == 1):
-                    if mail == usuarios and (permition == "leitura" or permition2=="leitura" or permition3=="leitura"):
-                        with open(nome_do_arquivo,'r') as leitura:
-                            x = leitura.readlines()
-                            print(x)
-                            option2=int(input("Deseja voltar ao menu principal?"))
-                            print("1-Sim")
-                            print("2-Não")
-                            if(option2==1):
-                                main_secundadrio(mail)
-                            else:
-                                break
-                    elif mail != usuarios or((permition != "leitura" or permition2!="leitura" or permition3!="leitura")):
+            arquivos = input("Digite o nome do arquivo em que voce deseja realizar uma operação:")
 
-                        print("Acesso negado")
-                elif (option == 2):
-                    if mail == usuarios and (permition == "escrever" or permition2=="escrever" or permition3=="escrever"):
-                        print("Acesso Permitido")
-                        conteudo=input("Digite um conteudo para ser inserido dentro deste arquivo:")
-                        with open(nome_do_arquivo,'w') as escrita:
-                            escrevendo= escrita.write(conteudo)
-                            option3=int(input("Deseja voltar ao menu principal?"))
-                            print("1-Sim")
-                            print("2-Não")
-                            if(option3==1):
-                                main_secundadrio(mail)
-                            else:
-                                break
-                    else:
-                        i+=1
-                        print("Acesso negado")
-        
+            if email == usuarios and arquivo==arquivos and ( permition == "leitura" or permition2=="leitura" or permition3=="leitura"):
+                print("Acesso permitido")
+                with open(arquivos,'r') as leitura:
+                    print("o arquivo {} foi lido".format(arquivos))
+                    x = leitura.readlines()
+                    print(x)
+            else:
+                print("Acesso negado")
+            print("1-Voltar ao menu principal")
+            print("2-Ler um outro arquivo")
+            print("3-Encerrar o programa")
+            option2 = int(input("Selecione a opcao desejada:"))
+            if(option2==1):
+                main_secundadrio(email)
+            elif (option2 == 2):
+                ler_arquivo(email)
+            elif(option2==3):
+                exit()
+
+
+def escrever_arquivo(email):
+    with open('arquivo.txt', 'r') as arquivo:
+        i = 0
+        while (i < 1):
+            permissoes = arquivo.readlines(i)
+            for linha in permissoes:
+                linha = linha.replace("\n", "")
+                campo = linha.split(",")
+                usuarios = campo[0]
+                arquivo = campo[1]
+                permition = campo[2]
+                permition2 = campo[3]
+                permition3 = campo[4]
+            arquivos = input("Digite o nome do arquivo em que voce deseja realizar uma operação:")
+            if email == usuarios and arquivo==arquivos and(permition == "escrever" or permition2=="escrever" or permition3=="escrever"):
+                print("Acesso Permitido")
+                conteudo=input("Digite um conteudo para ser inserido dentro deste arquivo:")
+
+                with open(arquivos,'w') as escrita:
+                    escrita.write(conteudo)
+                    print("o arquivo {} foi sobrescrito".format(arquivos))
+
+            else:
+                print("Acesso negado")
+            print("1-Voltar ao menu principal")
+            print("2-Ler um outro arquivo")
+            print("3-Encerrar o programa")
+            option2 = int(input("Selecione a opção desejada:"))
+            if(option2==1):
+                main_secundadrio(email)
+            elif (option2 == 2):
+                ler_arquivo(email)
+            elif (option2 == 3):
+                exit()
+
 def main():
+
     print("1-Fazer login")
     print("2-Cadastra-se")
     print("3-Esqueceu senha")
