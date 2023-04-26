@@ -153,10 +153,9 @@ def escrever_arquivo(email):
 def deletar_arquivo(email):
     with open('arquivo.txt', 'r') as arquivo:
         i = -1
-        permissoes = arquivo.readlines(i)
         while (i < 2):
             i = i + 1
-
+            permissoes = arquivo.readlines(i)
             for linha in permissoes:
                 linha = linha.replace("\n", "")
                 campo = linha.split(",")
