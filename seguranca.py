@@ -1,5 +1,6 @@
+#Trabalho feito por Micael e Leonardo Alves
 import pyrebase
-
+import os
 config = {
     "apiKey": "AIzaSyD2jmjs3YC0DmpIe84lAkSUn5Y4XZyprns",
     "authDomain": "sistemas-da-informa.firebaseapp.com",
@@ -29,7 +30,8 @@ def autenticar():
         print(dados_usuario)
         main_secundadrio(email)
 
-    except:
+    except Exception as e:
+            print(e)
             print("Erro de login,por favor tente novamente")
             autenticar()
 
@@ -68,12 +70,14 @@ def resetar_senha():
 def main_secundadrio(mail):
     print("1-Ler um arquivo")
     print("2-Escrever no arquivo")
-    print("4-Deletar o arquivo")
+    print("3-Deletar o arquivo")
     option = int(input("Digite um valor:"))
     if (option == 1):
         ler_arquivo(mail)
     elif (option == 2):
         escrever_arquivo(mail)
+    elif(option==3):
+        deletar_arquivo(mail)
 
 def ler_arquivo(email):
     with open('arquivo.txt', 'r') as arquivo:
@@ -137,15 +141,38 @@ def escrever_arquivo(email):
             else:
                 print("Acesso negado")
             print("1-Voltar ao menu principal")
-            print("2-Ler um outro arquivo")
+            print("2-escrever um outro arquivo")
             print("3-Encerrar o programa")
             option2 = int(input("Selecione a opção desejada:"))
             if(option2==1):
                 main_secundadrio(email)
             elif (option2 == 2):
-                ler_arquivo(email)
+                escrever_arquivo(email)
             elif (option2 == 3):
                 exit()
+def deletar_arquivo(email):
+    with open('arquivo.txt', 'r') as arquivo:
+        i = -1
+        permissoes = arquivo.readlines(i)
+        while (i < 2):
+            i = i + 1
+
+            for linha in permissoes:
+                linha = linha.replace("\n", "")
+                campo = linha.split(",")
+                usuarios = campo[0]
+                arquivo = campo[1]
+                permition = campo[2]
+                permition2 = campo[3]
+                permition3 = campo[4]
+            arquivos = input("Digite o nome do arquivo em que voce deseja realizar uma operação:")
+            if email == usuarios and arquivo == arquivos and (permition == "escrever" or permition2 == "escrever" or permition3 == "escrever"):
+                print("Acesso Permitido")
+                if os.path.exists(arquivos):
+                    print("o arquivo {} foi deletado".format(arquivos))
+                    os.remove(arquivos)
+            else:
+                print("Permissão negada")
 
 def main():
 
