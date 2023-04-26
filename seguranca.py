@@ -77,8 +77,9 @@ def main_secundadrio(mail):
 
 def ler_arquivo(email):
     with open('arquivo.txt', 'r') as arquivo:
-        i = 0
-        while (i < 1):
+        i = -1
+        while (i < 2):
+            i=i+1
             permissoes = arquivo.readlines(i)
             for linha in permissoes:
                 linha = linha.replace("\n","")
@@ -112,8 +113,9 @@ def ler_arquivo(email):
 
 def escrever_arquivo(email):
     with open('arquivo.txt', 'r') as arquivo:
-        i = 0
-        while (i < 1):
+        i = -1
+        while (i < 2):
+            i=i+1
             permissoes = arquivo.readlines(i)
             for linha in permissoes:
                 linha = linha.replace("\n", "")
